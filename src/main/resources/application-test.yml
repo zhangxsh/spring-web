@@ -1,0 +1,24 @@
+server:
+  application:
+    name: eureka-server
+
+management:
+  context-path: /t
+
+spring:
+  application:
+    name: eureka-server
+eureka:
+  datacenter: spring-boot-eureka
+  environment: test
+  server:
+    enableSelfPreservation: false
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.cloud.client.ip-address}:${server.port}
+
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${spring.cloud.client.ip-address}:${server.port}/eureka/
