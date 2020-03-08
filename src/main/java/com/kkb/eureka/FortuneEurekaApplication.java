@@ -21,6 +21,6 @@ public class FortuneEurekaApplication {
 	@RequestMapping(value = "/", method = {RequestMethod.HEAD,RequestMethod.GET})
     @ResponseBody
     public String Monitor() throws UnknownHostException {
-    	return "天涯何处觅知音......"+ Inet4Address.getLocalHost().getHostAddress();
+    	return "天涯何处觅知音********"+ Inet4Address.getLocalHost().getHostAddress();
     }
 }
