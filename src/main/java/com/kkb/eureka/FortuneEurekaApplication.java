@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
+
 @SpringBootApplication
 @RestController
 public class FortuneEurekaApplication {
@@ -17,7 +20,7 @@ public class FortuneEurekaApplication {
 	
 	@RequestMapping(value = "/", method = {RequestMethod.HEAD,RequestMethod.GET})
     @ResponseBody
-    public String Monitor() {
-    	return "天涯何处觅知音......";
+    public String Monitor() throws UnknownHostException {
+    	return "天涯何处觅知音......"+ Inet4Address.getLocalHost().getHostAddress();
     }
 }
