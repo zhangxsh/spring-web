@@ -5,5 +5,3 @@ server:
 spring:
   application:
     name: spring-web
-logging:
-  path: /var/web

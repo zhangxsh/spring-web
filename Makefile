@@ -1,4 +1,5 @@
-build:
+
+package:
 	mvn clean -DskipTests=true -U  package
 
 compile:
