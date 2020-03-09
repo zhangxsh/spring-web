@@ -1,4 +1,3 @@
-
 build:
 	mvn clean -DskipTests=true -U  package
 
