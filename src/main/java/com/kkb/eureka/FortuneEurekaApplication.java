@@ -26,5 +26,6 @@ public class FortuneEurekaApplication {
     public String Monitor() throws UnknownHostException {
 		log.info("new request");
     	return "天涯何处觅知音********"+ Inet4Address.getLocalHost().getHostAddress();
+
     }
 }
