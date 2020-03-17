@@ -2,6 +2,7 @@ server:
   application:
     name: spring-web
 
+
 spring:
   application:
     name: spring-web
