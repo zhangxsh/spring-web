@@ -4,10 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
@@ -21,11 +18,45 @@ public class FortuneEurekaApplication {
 		SpringApplication.run(FortuneEurekaApplication.class, args);
 	}
 	
-	@RequestMapping(value = "/", method = {RequestMethod.HEAD,RequestMethod.GET})
-    @ResponseBody
-    public String Monitor() throws UnknownHostException {
+	@RequestMapping(value = "/user", method = {RequestMethod.HEAD,RequestMethod.GET})
+	@ResponseBody
+	public String user(long time) throws UnknownHostException {
 		log.info("new request");
-    	return "天涯何处觅知音********"+ Inet4Address.getLocalHost().getHostAddress();
+		if(time>0L){
+			try {
+				Thread.sleep(time);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		return "user:"+time+","+ Inet4Address.getLocalHost().getHostAddress();
+	}
 
-    }
+	@RequestMapping(value = "/sys", method = {RequestMethod.HEAD,RequestMethod.GET})
+	@ResponseBody
+	public String sys(long time) throws UnknownHostException {
+		log.info("new request");
+		if(time>0L){
+			try {
+				Thread.sleep(time);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		return "sys:"+time+","+ Inet4Address.getLocalHost().getHostAddress();
+	}
+
+	@RequestMapping(value = "/tx", method = {RequestMethod.HEAD,RequestMethod.GET})
+	@ResponseBody
+	public String tx(long time) throws UnknownHostException {
+		log.info("new request");
+		if(time>0L){
+			try {
+				Thread.sleep(time);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		return "tx:"+time+","+ Inet4Address.getLocalHost().getHostAddress();
+	}
 }
