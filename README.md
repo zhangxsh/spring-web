@@ -1,2 +1,1 @@
-eureka作为公共的zhu'ce注册zhong'xn注册中心
-f2
+http://127.0.0.1:8080/actuator/metrics
