@@ -1,8 +1,11 @@
-server:
-  application:
-    name: spring-web
-
-
 spring:
   application:
     name: spring-web
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,prometheus,metrics,httptrace,threaddump,heapdump
+    path-mapping:
+      prometheus: metrics
+    base-path: /
