@@ -2,30 +2,49 @@ package com.kkb.eureka;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.net.Inet4Address;
-import java.net.UnknownHostException;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
-@SpringBootApplication
-@RestController
 public class FortuneEurekaApplication {
 
-	Logger log= LoggerFactory.getLogger(getClass());
-	public static void main(String[] args) {
-		SpringApplication.run(FortuneEurekaApplication.class, args);
-	}
-	
-	@RequestMapping(value = "/", method = {RequestMethod.HEAD,RequestMethod.GET})
-    @ResponseBody
-    public String Monitor() throws UnknownHostException {
-		log.info("new request");
-    	return "天涯何处觅知音********"+ Inet4Address.getLocalHost().getHostAddress();
+	static String content="GET / HTTP/1.1\n"
+			+
+			"Host: yingapi.yirendai.com\n" +
+			"Accept: */*\n"
++
+			"Connection: keep-alive\n" +
+			"Accept-Language: zh-cn\n" +
+			"Content-Length: 0\n" +
+			"Cache-Control: no-cache"
+			;
 
-    }
+//	static String content="test";
+	static Logger log = LoggerFactory.getLogger(FortuneEurekaApplication.class);
+
+	public static void main(String[] args) throws InterruptedException {
+
+		ExecutorService p = Executors.newFixedThreadPool(100);
+
+		IntStream.range(1, 2).forEach(i -> {
+			p.submit(() -> {
+						try {
+							Socket ss = new Socket("192.168.1.222", 80);
+							OutputStream outputStream = ss.getOutputStream();
+							outputStream.write(content.getBytes());
+							log.info("{} send!",i);
+							Thread.sleep(120*1000);
+//							outputStream.close();
+//							ss.close();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+			);
+		});
+		Thread.sleep(150 * 1000);
+	}
 }
