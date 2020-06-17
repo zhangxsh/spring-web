@@ -29,16 +29,15 @@ public class FortuneEurekaApplication {
 
 		ExecutorService p = Executors.newFixedThreadPool(100);
 
-		IntStream.range(1, 2).forEach(i -> {
+		IntStream.range(1, 5).forEach(i -> {
 			p.submit(() -> {
 						try {
 							Socket ss = new Socket("192.168.1.222", 80);
 							OutputStream outputStream = ss.getOutputStream();
 							outputStream.write(content.getBytes());
+							outputStream.flush();
 							log.info("{} send!",i);
 							Thread.sleep(120*1000);
-//							outputStream.close();
-//							ss.close();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
