@@ -13,7 +13,7 @@ public class FortuneEurekaApplication {
 
 	static String content="GET / HTTP/1.1\n"
 			+
-			"Host: yingapi.yirendai.com\n" +
+			"Host: abc.test.com\n" +
 			"Accept: */*\n"
 +
 			"Connection: keep-alive\n" +
