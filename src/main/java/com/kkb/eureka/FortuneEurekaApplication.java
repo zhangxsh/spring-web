@@ -3,40 +3,37 @@ package com.kkb.eureka;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 public class FortuneEurekaApplication {
-
-	static String content="GET / HTTP/1.1\n"
-			+
-			"Host: abc.test.com\n" +
-			"Accept: */*\n"
-+
-			"Connection: keep-alive\n" +
-			"Accept-Language: zh-cn\n" +
-			"Content-Length: 0\n" +
-			"Cache-Control: no-cache"
-			;
-
-//	static String content="test";
 	static Logger log = LoggerFactory.getLogger(FortuneEurekaApplication.class);
 
 	public static void main(String[] args) throws InterruptedException {
 
 		ExecutorService p = Executors.newFixedThreadPool(100);
 
-		IntStream.range(1, 5).forEach(i -> {
+		IntStream.range(1, 2).forEach(i -> {
 			p.submit(() -> {
 						try {
 							Socket ss = new Socket("192.168.1.222", 80);
+							InputStream in=ss.getInputStream();
 							OutputStream outputStream = ss.getOutputStream();
-							outputStream.write(content.getBytes());
+							outputStream.write(content().getBytes());
 							outputStream.flush();
-							log.info("{} send!",i);
+							log.info("{} send ok!",i);
+							InputStream is=ss.getInputStream();
+							BufferedInputStream streamReader = new BufferedInputStream(is);
+							BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(streamReader, "utf-8"));
+							String line = null;
+							while((line = bufferedReader.readLine())!= null)
+							{
+								System.out.println(line);
+							}
+							bufferedReader.close();
 							Thread.sleep(120*1000);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -45,5 +42,21 @@ public class FortuneEurekaApplication {
 			);
 		});
 		Thread.sleep(150 * 1000);
+	}
+
+	public static String content(){
+		// 注意这里必须制定请求方式 地址 注意空格
+		StringBuffer sb = new StringBuffer("GET /user?time=1 HTTP/1.1\r\n");
+		// 以下为请求头
+		sb.append("Host: www.test.com\r\n");
+		sb.append("User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0\r\n");
+		sb.append("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n");
+		sb.append("Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+		sb.append("Accept-Encoding: \r\n");
+		sb.append("Connection: keep-alive\r\n");
+		sb.append("Upgrade-Insecure-Requests: 1\r\n");
+		sb.append("\r\n");
+		System.out.println(sb.toString());
+		return sb.toString();
 	}
 }
