@@ -77,11 +77,7 @@ public class RedisClient {
 
 	public static void main(String[] args) {
 
-		new RedisClient("127.0.0.1", 6379).operate("hset c a");;
-
-
-
-
+		new RedisClient("127.0.0.1", 6379).operate("hset c a a");;
 	}
 
 }
