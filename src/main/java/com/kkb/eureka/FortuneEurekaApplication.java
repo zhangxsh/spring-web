@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
@@ -16,6 +18,7 @@ public class FortuneEurekaApplication {
 
 		ExecutorService p = Executors.newFixedThreadPool(100);
 
+		List sockets= new ArrayList<>();
 		IntStream.range(1, 2).forEach(i -> {
 			p.submit(() -> {
 						try {
@@ -31,9 +34,10 @@ public class FortuneEurekaApplication {
 							String line = null;
 							while((line = bufferedReader.readLine())!= null)
 							{
-								System.out.println(line);
+								System.out.println("[response is:]"+line);
 							}
-							bufferedReader.close();
+
+							sockets.add(ss);
 							Thread.sleep(120*1000);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -45,6 +49,10 @@ public class FortuneEurekaApplication {
 	}
 
 	public static String content(){
+		return "a";
+	}
+
+	public static String content2(){
 		// 注意这里必须制定请求方式 地址 注意空格
 		StringBuffer sb = new StringBuffer("GET /user?time=1 HTTP/1.1\r\n");
 		// 以下为请求头
