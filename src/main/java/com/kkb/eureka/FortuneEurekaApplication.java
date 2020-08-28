@@ -48,12 +48,11 @@ public class FortuneEurekaApplication {
 		Thread.sleep(150 * 1000);
 	}
 
-	public static String content(){
+	public static String content2(){
 		return "a";
 	}
 
-	public static String content2(){
-		// 注意这里必须制定请求方式 地址 注意空格
+	public static String content(){
 		StringBuffer sb = new StringBuffer("GET /user?time=1 HTTP/1.1\r\n");
 		// 以下为请求头
 		sb.append("Host: www.test.com\r\n");
