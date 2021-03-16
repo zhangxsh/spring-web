@@ -54,46 +54,46 @@ public class FortuneEurekaApplication {
         String result = null;
 
         try {
-/** 创建远程url连接对象 */
+        /** 创建远程url连接对象 */
             URL url = new URL(requestUrl);
 
-/** 通过远程url对象打开一个连接，强制转换为HttpUrlConnection类型 */
+        /** 通过远程url对象打开一个连接，强制转换为HttpUrlConnection类型 */
             connection = (HttpURLConnection) url.openConnection();
 
-/** 设置连接方式：GET */
+        /** 设置连接方式：GET */
             connection.setRequestMethod("GET");
-/** 设置连接主机服务器超时时间：15000毫秒 */
+        /** 设置连接主机服务器超时时间：15000毫秒 */
             connection.setConnectTimeout(15000);
-/** 设置读取远程返回的数据时间：60000毫秒 */
+        /** 设置读取远程返回的数据时间：60000毫秒 */
             connection.setReadTimeout(60000);
 
-/** 设置通用的请求属性 */
+        /** 设置通用的请求属性 */
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-// 设置传入参数的格式:请求参数应该是 name1=value1&name2=value2 的形式
+        // 设置传入参数的格式:请求参数应该是 name1=value1&name2=value2 的形式
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-/** 发送GET方式请求，使用connet方法建立和远程资源之间的实际连接即可 */
+        /** 发送GET方式请求，使用connet方法建立和远程资源之间的实际连接即可 */
             connection.connect();
 
             /*-------------------------->*/
-/** 获取所有相应头字段 */
+        /** 获取所有相应头字段 */
             Map<String, List<String>> map = connection.getHeaderFields();
-/** 遍历响应头字段 */
+        /** 遍历响应头字段 */
             for (String key : map.keySet()) {
                 System.out.println(key + "---------->" + map.get(key));
             }
             /* <-------------------------- */
 
-/** 请求成功：返回码为200 */
+        /** 请求成功：返回码为200 */
             if (connection.getResponseCode() == 200) {
-/** 通过connection连接，获取输入流 */
+        /** 通过connection连接，获取输入流 */
                 is = connection.getInputStream();
-/** 封装输入流is，并指定字符集 */
+        /** 封装输入流is，并指定字符集 */
                 br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 
-/** 存放数据 */
+        /** 存放数据 */
                 StringBuffer sbf = new StringBuffer();
                 String line = null;
                 while ((line = br.readLine()) != null) {
@@ -106,7 +106,7 @@ public class FortuneEurekaApplication {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-/** 关闭资源 */
+        /** 关闭资源 */
             try {
 
                 if (null != br) {
