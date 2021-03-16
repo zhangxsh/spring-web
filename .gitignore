@@ -1,0 +1,29 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+.classpath
+.project
+.settings/
+target/
+.DS_Store
+.idea/
+*.iml
+*.class
+*.jar
+*.war
+*.ear
+.springBeans
+
+logs/diamond-client.log
+logs/sls
+log.txt
+git
+
+### akconfig ###
+.akconfig
+
+log.*
+logs/**
